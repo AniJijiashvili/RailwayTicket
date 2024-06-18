@@ -1,0 +1,68 @@
+<div *ngIf="trains && trains.length" class="train_container">
+    <h2>please Choose suitable train</h2>
+    <ul class="train_list">
+        <div class="title">
+            <p>Train number</p>
+            <p>Departure</p>
+            <p>Arrive</p>
+        </div>
+        <li *ngFor="let train of trains">
+            <!-- <p>{{train.id}}</p> -->
+
+            <div>
+                <p>#{{train.number}}</p>
+                <p> {{train.name}}</p>
+            </div>
+
+            <div>
+
+                <p> {{train.departure}}
+                </p>
+                <p> {{train.from}}
+                </p>
+            </div>
+
+            <div class="arrive">
+                <p> {{train.arrive}}
+                </p>
+                <p> {{train.to}}
+                </p>
+            </div>
+
+
+
+
+            <button (click)="orderTicket(train, train.id)" class="btn" type="button">
+                <strong>Book</strong>
+                <div id="container-stars">
+                    <div id="stars"></div>
+                </div>
+
+                <div id="glow">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+            </button>
+
+        </li>
+    </ul>
+</div>
+<div *ngIf="!trains || !trains.length" class="empty_container">
+    <p class="empty">No trains found</p>
+    <a routerLink="/">
+        <button class="btn_second" type="button">
+            <strong>Go to main page</strong>
+            <div id="container-stars">
+                <div id="stars"></div>
+            </div>
+    
+            <div id="glow">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </button>
+    </a>
+
+
+
+</div>

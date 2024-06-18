@@ -1,0 +1,42 @@
+<div class="pay">
+    <h2>Please enter your card details</h2>
+    <form (ngsubmit)="onSubmit()">
+        <div class="pay_container">
+            <!-- <div class="total_amount">
+                <p>Total amount:</p>
+            </div> -->
+            <div class="card">
+                <p>Card number:</p>
+                <input type="text" placeholder="0000 0000 0000 0000">
+            </div>
+            <div class="validity_cvc">
+                <div class="card">
+                    <p>Validity</p>
+                    <input type="date" class="date" required>
+                </div>
+                <div class="card">
+                    <p>CVC / CVV:</p>
+                    <input type="text" placeholder="000" required>
+                </div>
+            </div>
+            <div class="card">
+                <p>Card owner:</p>
+                <input type="text" placeholder="Name and surname" required>
+            </div>
+            <a routerLink="/finalticket">
+                <button type="submit" class="btn" (click)="onSubmit()" >
+                    <strong>Submit</strong>
+                    <div id="container-stars">
+                        <div id="stars"></div>
+                    </div>
+
+                    <div id="glow">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                </button>
+            </a>
+        </div>
+
+    </form>
+</div>

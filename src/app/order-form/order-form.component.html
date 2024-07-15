@@ -1,10 +1,10 @@
 <div class="order_container">
-  <h2>Passenger information </h2>
+  <h2>{{ 'ORDERFORM.INFO' | translate}} </h2>
   <div class="passenger_information">
     <div class="passanger_details">
 
       <div class="flight">
-        <p class="flight_p">Please enter your personal details </p>
+        <p class="flight_p">{{ 'ORDERFORM.PERSONAL' | translate}} </p>
         <div class="flight_details">
           <div class="direction">
             <p>#{{train.number}}</p>
@@ -25,39 +25,39 @@
       <form (ngSubmit)="onSubmit()" [formGroup]="orderForm">
         <div>
           <div>
-            <p class="flight_p">Contact Information</p>
+            <p class="flight_p">{{ 'ORDERFORM.CONTACT' | translate}} </p>
             <div class="contact_container">
               <div class="input-wrapper">
-                <input type="email" placeholder="Email" class="input" formControlName="email">
+                <input type="email" placeholder="{{ 'ORDERFORM.EMAIL' | translate}}" class="input" formControlName="email">
               </div>
               <div class="input-wrapper">
-                <input type="text" placeholder="Mobile Number" class="input" formControlName="phoneNumber">
+                <input type="text" placeholder="{{ 'ORDERFORM.PHONE' | translate}}" class="input" formControlName="phoneNumber">
               </div>
             </div>
           </div>
           <div class="personal_details">
-            <p class="flight_p">Passenger Information</p>
+            <p class="flight_p">{{ 'ORDERFORM.PASSENGER' | translate}}</p>
             <div formArrayName="passengers">
               <div *ngFor="let passenger of passengers.controls; let i = index" [formGroupName]="i"
                 class="personal_container">
                 <div>
-                  <p class="pass_title">Passenger {{ i + 1 }}</p>
+                  <p class="pass_title">{{ 'ORDERFORM.PASSENGERNUM' | translate}} {{ i + 1 }}</p>
                 </div>
                 <div class="pass_qty">
                   <button class="btn" type="button" (click)="signIn($event, i)">
-                    <span class="text">Seat: {{ passenger.get('seatNumber')?.value }}</span>
+                    <span class="text">{{ 'ORDERFORM.SEAT' | translate}}  {{ passenger.get('seatNumber')?.value }}</span>
                   </button>
                   <div class="input-wrapper">
-                    <input type="text" placeholder="Name" class="input" formControlName="name">
+                    <input type="text" placeholder="{{ 'ORDERFORM.NAME' | translate}} " class="input" formControlName="name">
                   </div>
                   <div class="input-wrapper">
-                    <input type="text" placeholder="Surname" class="input" formControlName="surname">
+                    <input type="text" placeholder="{{ 'ORDERFORM.SURNAME' | translate}} " class="input" formControlName="surname">
                   </div>
                   <div class="input-wrapper">
-                    <input type="text" placeholder="ID Number" class="input" formControlName="idNumber">
+                    <input type="text" placeholder="{{ 'ORDERFORM.ID' | translate}} " class="input" formControlName="idNumber">
                   </div>
                   <button type="button" (click)="signIn($event, i); vagonSearch()">
-                    <span class="text">Select Seat</span>
+                    <span class="text">{{ 'ORDERFORM.INVOICESEAT' | translate}} </span>
                   </button>
                 </div>
               </div>
@@ -68,24 +68,24 @@
           <div class="personal">
             <img class="personal_photo" src="../../assets/backbag.png">
             <div class="text">
-              <p class="text_title">Personal Item</p>
-              <p class="text_p">purse, small backpack,briefcase </p>
+              <p class="text_title">{{ 'ORDERFORM.PERSONALITEM' | translate}} </p>
+              <p class="text_p">{{ 'ORDERFORM.PURSE' | translate}}  </p>
               <img class="inlcuded" src="../../assets/inlcuded.png">
             </div>
           </div>
           <div class="personal">
             <img class="personal_photo" src="../../assets/small.png">
             <div class="text">
-              <p class="text_title">Personal Item</p>
-              <p class="text_p">purse, small backpack,briefcase </p>
+              <p class="text_title">{{ 'ORDERFORM.Carry' | translate}} </p>
+              <p class="text_p">{{ 'ORDERFORM.Fits' | translate}}  </p>
               <img class="inlcuded" src="../../assets/inlcuded.png">
             </div>
           </div>
           <div class="personal">
             <img class="personal_photo" src="../../assets/carry.png">
             <div class="text">
-              <p class="text_title">Personal Item</p>
-              <p class="text_p">purse, small backpack,briefcase </p>
+              <p class="text_title">{{ 'ORDERFORM.CHECKED' | translate}} </p>
+              <p class="text_p">{{ 'ORDERFORM.large' | translate}}  </p>
               <img class="inlcuded" src="../../assets/notincluded.png">
             </div>
           </div>
@@ -102,25 +102,25 @@
     </div>
     <div class="invoice">
       <div class="invoice_container">
-        <div class="invoice_title">Invoice</div>
+        <div class="invoice_title">{{ 'ORDERFORM.INVOICE' | translate}} </div>
         <div class="invoice_price">
-          <p>Seat</p>
-          <p>Price</p>
+          <!-- <p>{{ 'ORDERFORM.INVOICESEAT' | translate}} </p> -->
+          <p>{{ 'ORDERFORM.INVOICEPRICE' | translate}} </p>
         </div>
         <hr class="line">
         <div class="price_container">
-          <p>Total:</p>
+          <p>{{ 'ORDERFORM.INVOICETOTAL' | translate}} :</p>
           <p>{{this.totalPrice}}₾</p>
         </div>
         <div class="terms">
-          <a routerLink="/terms">Agree to terms and conditions</a>
+          <a routerLink="/terms">{{ 'ORDERFORM.TERMS' | translate}} </a>
           <label class="container">
             <input type="checkbox" checked="checked">
             <div class="checkmark"></div>
           </label>
         </div>
         <a routerLink="/pay">
-          <button type="submit" class="registration" (click)="onSubmit()"  [disabled]="orderForm.invalid" [ngStyle]="{cursor:orderForm.invalid? 'not-allowed':''}">Submit</button>
+          <button type="submit" class="registration" (click)="onSubmit()"  [disabled]="orderForm.invalid" [ngStyle]="{cursor:orderForm.invalid? 'not-allowed':''}">{{ 'ORDERFORM.submit' | translate}} </button>
         </a>
         <!-- <button class="registration" type="submit">
           <span class="text">Ticket Registration</span>
@@ -138,22 +138,22 @@
       <div class="card-photo">
         <div class="img-container" (click)="showWagon('I კლასი')" (click)="openSeat($event)">
           <img src="../../assets/firstWagon.png" alt="First Wagon">
-          <div class="hover-text">I Class</div>
+          <div class="hover-text">{{ 'ORDERFORM.CLASS1' | translate}} </div>
         </div>
         <div class="img-container" (click)="showWagon('II კლასი')" (click)="openSeat($event)">
           <img src="../../assets/midWagon.png" alt="Mid Wagon">
-          <div class="hover-text">II Class</div>
+          <div class="hover-text">{{ 'ORDERFORM.CLASS2' | translate}} </div>
         </div>
         <div class="img-container" (click)="showWagon('ბიზნესი')" (click)="openSeat($event)">
           <img src="../../assets/lastWagon.png" alt="Last Wagon">
-          <div class="hover-text">Business</div>
+          <div class="hover-text">{{ 'ORDERFORM.CLASS3' | translate}} </div>
         </div>
 
       </div>
-      <p *ngIf="!isOpen">please choose wagon</p>
+      <p *ngIf="!isOpen">{{ 'ORDERFORM.CHOOSE' | translate}} </p>
     </div>
     <div class="seats" *ngIf="isOpen" (click)="openSeat($event)">
-      <p>Vagon type: {{ selectedWagonClass }} </p>
+      <p>{{ 'ORDERFORM.TYPE' | translate}}  {{ selectedWagonClass }} </p>
       <ul>
 
         <li *ngFor="let seat of selectedWagon?.seats" (click)="logSeatId(seat.number)">

@@ -3,8 +3,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule, } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
-import { JsonPipe, NgFor, NgIf, NgStyle } from '@angular/common';
+import {  NgFor, NgIf, NgStyle } from '@angular/common';
 import { TicketService } from '../ticket.service';
+import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 
 interface Wagon {
   id: number;
@@ -18,7 +20,7 @@ interface Wagon {
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.css'], 
-  imports:[ReactiveFormsModule, NgFor, NgIf,RouterModule,NgStyle],
+  imports:[ReactiveFormsModule, NgFor, NgIf,RouterModule,NgStyle,TranslateModule],
   standalone:true
 })
 export class OrderFormComponent implements OnInit {
@@ -40,6 +42,7 @@ export class OrderFormComponent implements OnInit {
   totalPrice: number = 0;
   selectedSeatIds: Map<number, string> = new Map();  // Map to store selected seat IDs for each passenger
   ticketId: string | null = null;
+  selectedLanguage: string = 'en'; 
 
 
 
@@ -49,10 +52,13 @@ export class OrderFormComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private formBuilder: FormBuilder,
-    private ticketservice: TicketService
+    private ticketservice: TicketService,
+    private translateService: TranslateService
 
     // private ticketService:TicketService,
   ) {
+    this.translateService.setDefaultLang(this.selectedLanguage);
+
     this.orderForm = this.formBuilder.group({
       email: ['',[Validators.required,Validators.email]],
       phoneNumber: ['',[Validators.required,Validators.pattern('^[0-9]{9}$')]],
@@ -246,12 +252,6 @@ export class OrderFormComponent implements OnInit {
     }
   }
   
-
-
-
-
-
-
 
 
 

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { trainType } from './traintype';
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-train-list',
   standalone: true,
-  imports: [NgFor, HttpClientModule, NgIf,RouterModule],
+  imports: [NgFor, HttpClientModule, NgIf,RouterModule,TranslateModule],
   templateUrl: './train-list.component.html',
   styleUrl: './train-list.component.css'
 })
@@ -19,13 +19,15 @@ export class TrainListComponent implements OnInit {
   date!: string;
   travelers!: number; // Declare the travelers variable
   trains: any[] = [];
+  selectedLanguage: string = 'en'; 
 
 
 
 
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,private translateService: TranslateService) {
+    this.translateService.setDefaultLang(this.selectedLanguage);
+   }
 
-
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     

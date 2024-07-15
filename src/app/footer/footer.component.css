@@ -1,8 +1,17 @@
+:root {
+    --textFont: "Roboto", sans-serif;
+    --white: #ffffff;
+}
+
+* {
+    padding: 0;
+    margin: 0 ;
+  
+}
+
 footer {
-    /* height: 300px; */
     background-color: rgb(14, 37, 63);
-    padding: 20px;
-   
+    padding: 60px 40px;
 }
 
 .footer_container {
@@ -11,8 +20,7 @@ footer {
     margin: auto;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 45px;
-    margin-top:50px;
-
+    margin-top: 50px;
 }
 
 
@@ -43,20 +51,21 @@ footer {
 .terms a {
     text-decoration: none;
     color: white;
-    font-family: "Times New Roman", Times, serif;
+    font-family: var(--textFont);
     font-size: 12px;
 }
 
 .terms_p {
     color: white;
-    font-family: "Times New Roman", Times, serif;
+    font-family: var(--textFont);
     font-size: 12px;
 }
-.from{
+
+.from {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:15px;
+    gap: 15px;
 }
 
 h4 {
@@ -66,66 +75,71 @@ h4 {
 
 .from_desinations {
     color: white;
-    font-family: "Times New Roman", Times, serif;
+    font-family: var(--textFont);
     font-size: 18px;
 }
-.to{
+
+.to {
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:15px;
+    gap: 15px;
 
 }
+
 .to_desinations {
     color: white;
-    font-family: "Times New Roman", Times, serif;
+    font-family: var(--textFont);
     font-size: 18px;
 }
-.follow{
+
+.follow {
     display: flex;
     flex-direction: column;
-    gap:0px;
+    gap: 16px;
 }
-.follow-container{
+
+.follow-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:15px;
+    gap: 15px;
 
 }
-.follow div{
+
+.follow a {
     display: flex;
-    gap:10px
-}
-.follow div a{
+    gap: 10px;
+    text-decoration: none;
     display: flex;
-    gap:10px
+    align-items: center;
 }
-.follow img{
+
+.follow img {
     width: 20px;
-    height:20px;
 }
-.follow-container p{
-    color: white;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
 
+.follow-container p {
+    color: white;
+    font-size: 18px;
+    font-family: var(--textFont);
 }
 
 @media screen and (max-width:1250px) {
- 
+
     .footer_container {
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr;
         /* column-gap:20px; */
         row-gap: 30px;
         align-items: center;
         justify-content: center;
         justify-items: center;
-        
-      }
-      .terms{
+
+    }
+
+    .terms {
         align-items: center;
-      }
+    }
 
 }

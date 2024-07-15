@@ -35,6 +35,7 @@ form {
 .inccorect p {
     font-family: poetsen;
     font-size: 30px;
+    text-align: center;
     color: red;
 }
 
@@ -57,7 +58,7 @@ input {
     color: rgb(234, 234, 234);
     font-weight: 700;
     transition: 0.6s;
-    box-shadow: 0px 0px 60px #1f4c65;
+    box-shadow: 0px 0px 60px #1f4c653d;
     -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4));
 }
 
@@ -67,7 +68,7 @@ input {
 
 .btn:hover {
     background: rgb(2, 29, 78);
-    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+    background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, #09567F 60%);
     color: rgb(4, 4, 38);
 }
 
@@ -375,9 +376,11 @@ h5 {
     border: 1px solid black;
 
 }
-.cencel{
+
+.cencel {
     margin-bottom: 50px;
 }
+
 .btn_second {
     display: flex;
     justify-content: center;
@@ -564,29 +567,38 @@ strong {
     input {
         width: 300px;
     }
-    .ticket_container{
+
+    .ticket_container {
         transform: scale(0.7);
-        margin-top:-50px;
-    };
-    .ticket-check{
+        margin-top: -50px;
+    }
+
+    ;
+
+    .ticket-check {
         display: flex;
         flex-direction: column;
 
     }
-    .inccorect p{
+
+    .inccorect p {
         font-size: 15px;
     }
-    .ticket_information p{
+
+    .ticket_information p {
         font-size: 15px;
     }
-    .cencel{
-        margin-top:-100px;
+
+    .cencel {
+        margin-top: -100px;
     }
 }
 
 @media screen and (max-width:550px) {
-    .ticket_container{
+    .ticket_container {
         transform: scale(0.7);
-        margin-left:-70px;
-    };
+        margin-left: -70px;
+    }
+
+    ;
 }

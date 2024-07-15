@@ -34,34 +34,36 @@ header {
 .shadow__btn {
   padding: 10px 20px;
   border: none;
-  font-size: 17px;
+  font-size: 16px;
   color: black;
   border-radius: 7px;
   letter-spacing: 4px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   transition: 0.5s;
   transition-property: box-shadow;
   font-family: poetsen;
-}
-
-.shadow__btn {
-  background: rgb(0, 140, 255);
-  box-shadow: 0 0 25px rgb(0, 140, 255);
+  transition: 0.4s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  background: #0077B6;
 }
 
 .shadow__btn:hover {
-  box-shadow: 0 0 5px rgb(0, 140, 255),
-    0 0 25px rgb(0, 140, 255),
-    0 0 50px rgb(0, 140, 255),
-    0 0 100px rgb(0, 140, 255);
-  color: blue;
+  color: #006BA6;
+  background: rgb(26, 26, 26);
 }
 
 /* ჰედერის მარცხენა ნაწილი */
 .header-details-child {
   display: flex;
   gap: 20px;
+}
+
+.header-details-child p{
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
 }
 
 .header-details img {
@@ -86,7 +88,6 @@ header {
   fill: var(--color);
   /* gap: 20px; */
 
-
 }
 
 .container>div {
@@ -101,6 +102,9 @@ header {
   display: flex;
   align-items: center;
 }
+/* .usd_text{
+  font-size: 15px
+} */
 
 /* ენების ჩამონათვალი ჰედერში */
 .lang-menu .selected-lang {
@@ -113,21 +117,15 @@ header {
   cursor: pointer;
   font-family: poetsen;
   margin: auto;
-
+  transition: 0.3s;
 }
 
 .selected-lang:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 5px rgb(0, 140, 255),
-    0 0 25px rgb(0, 140, 255),
-    0 0 50px rgb(0, 140, 255),
-    0 0 100px rgb(0, 140, 255);
   color: black;
   border-radius: 20px;
   padding-right: 15px;
   padding-left: 15px;
-  /* padding: 10px; */
-
 }
 
 .lang-menu .selected-lang:before {
@@ -146,11 +144,12 @@ header {
   background-color: #fff;
   border: 1px solid #f8f8f8;
   position: absolute;
-  top: 45px;
+  top: 35px;
   right: 0px;
   width: 125px;
   border-radius: 5px;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+
 
 }
 
@@ -160,13 +159,16 @@ header {
   border-radius: 20px;
   overflow: hidden;
 
+
 }
 
 .lang-menu ul li {
   list-style: none;
   text-align: left;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  ;
+  align-items: center;
 
 }
 
@@ -180,9 +182,8 @@ header {
   padding: 10px 10px;
   display: block;
   align-self: center;
-
-
-
+  font-size: 14px;
+  align-items: center;
 }
 
 .lang-menu ul li a:before {
@@ -237,19 +238,12 @@ header {
   gap: 5px;
   cursor: pointer;
   width: 100px;
+  transition: 0.3s;
 }
 
 
 .sign div:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 5px rgb(0, 140, 255),
-    0 0 25px rgb(0, 140, 255),
-    0 0 50px rgb(0, 140, 255),
-    0 0 100px rgb(0, 140, 255);
-  color: black;
-  border-radius: 20px;
-  padding: 10px;
-
 }
 
 
@@ -325,7 +319,6 @@ button:hover {
   background: #212121 padding-box;
   padding: 10px 0 0 0;
   color: #bdb8b8;
-
   font-size: 12px;
 }
 
@@ -348,7 +341,7 @@ button:hover {
 
 .line {
   fill: none;
-  stroke: rgb(0, 140, 255);
+  stroke: #006BA6;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3;
@@ -384,7 +377,8 @@ button:hover {
   padding: 10px 20px;
   overflow: hidden;
 }
-.responsive-language >div:first-child{
+
+.responsive-language>div:first-child {
   border-right: 1px solid grey;
 }
 
@@ -394,14 +388,14 @@ button:hover {
 }
 
 .responsive-language div a:hover {
-  color: rgb(15, 15, 185);
+  color: #0077B6;
 
 }
 
 .responsive-language a {
   text-decoration: none;
   font-family: poetsen;
-  color: blue;
+  color: #0077B6;
 }
 
 
@@ -465,10 +459,6 @@ button:hover {
 
 
 
-
-
-
-
 @media screen and (max-width:1100px) {
   .logo {
     transform: scale(0.8);
@@ -480,16 +470,15 @@ button:hover {
 
 }
 
-
 @media screen and (max-width:986px) {
   /* მენიუს შეცვლა */
   .selected-lang-child {
     display: none !important;
   }
-
   .check-sign {
     display: block !important;
   }
+
   .hamburger {
     display: block;
     z-index: 999999999;
@@ -497,7 +486,6 @@ button:hover {
 
 
   /* ჰედერი */
-
   .header-details {
     position: absolute;
     left: 120vw;
@@ -517,7 +505,7 @@ button:hover {
   .header-details-child {
     flex-direction: column;
     margin-top: 150px;
-   
+
   }
 
   .container {
@@ -529,32 +517,28 @@ button:hover {
     justify-items: start;
     justify-content: start;
     margin-left: 20px;
+  }
 
+  .selected-lang {
+    max-width: 100px;
+    margin: 0 !important;
 
   }
-.selected-lang{
-  max-width: 100px;
-  margin:0 !important;
 
-}
+  .selected-lang:hover {
+    transform: scale(0.9) !important;
+    box-shadow: none;
+    padding: 0;
+  }
 
-
-.selected-lang:hover {
-  transform: scale(0.9) !important;
-  box-shadow:none;
-  padding: 0;
-}
-
-.sign div:hover {
-  transform: scale(0.9);
-  box-shadow:none;
-  padding: 0 !important;
+  .sign div:hover {
+    transform: scale(0.9);
+    box-shadow: none;
+    padding: 0 !important;
+  }
 
 
-}
-
-
-/* ბილეთების შემოწმების ღილაკი */
+  /* ბილეთების შემოწმების ღილაკი */
   .check {
     position: absolute;
     left: 120vw;
@@ -572,22 +556,25 @@ button:hover {
     transition: left 0.7s ease;
     cursor: pointer;
   }
-.check button{
-  padding: 20px;
-}
 
-/* რეგისტრაცია */
+  .check button {
+    padding: 20px;
+  }
+
+  /* რეგისტრაცია */
   .sign-container {
     z-index: 2000;
-  
+
   }
 }
+
 @media screen and (max-width:600px) {
-  .header-details-child{
+  .header-details-child {
     transform: scale(0.8);
 
   }
-  .container{
-    margin-left: -50px  !important;
+
+  .container {
+    margin-left: -50px !important;
   }
 }

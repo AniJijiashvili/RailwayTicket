@@ -1,4 +1,15 @@
 {
+    "თბილისი-ფოთი": "Tbilisi-Poti",
+    "თბილისი-ბათუმი": "Tbilisi-Poti",
+    "ბათუმი-ფოთი": "Tbilisi-Poti",
+    "ბათუმი-თბილისი": "Tbilisi-Poti",
+    "ფოთი-ბათუმი": "Tbilisi-Poti",
+    "ფოთი-თბილისი": "Tbilisi-Poti",
+    "თბილისი": "Tbilisi",
+    "ბათუმი": "Batumi",
+    "ფოთი": "Poti",
+    "GEL": "GEL",
+    "USD": "USD",
     "HEADER": {
         "TITLE": "Railway Ticket",
         "LANGUAGES": "English",
@@ -49,7 +60,7 @@
         "TERMSTICKET": "To purchase each ticket, it is necessary to fill in the personal information of the passenger, including the ID number. The time for purchasing tickets is 10 minutes and the user is responsible for the correctness of the information provided. Passengers will not be allowed to board the train if they provide incorrect ID or passport information. Please note that it is equally important to fill in the mobile phone number and email address correctly, as the e-ticket will be sent to the contact information you provided. You can buy a ticket on the website with or without registration. Note that if you buy a ticket without registration, your active ticket link will be sent via SMS and email address and you will not have access to it in your TRE.GE profile. To buy a ticket, first of all, you have to select the cities of the desired destination, specify the date of departure and return, the number of passengers and search. Choose desired time in the search result list and continue buying tickets. In the next step, you have to fill in the passenger's name, surname, ID number and proceed to payment. You can buy multiple tickets with only one passenger's ID number. It is necessary that the person whose name all the tickets are issued is one of the passengers. If you buy a ticket from us, you only need a passenger's ID card or passport when entering the train.",
         "TICKETRETURN": "Ticket Return",
         "TICKETRULES": "The rules of Georgian Railways apply when returning a ticket, and it is possible to return three hour before the departure of the train. ",
-        "POLICY":"Privacy policy",
+        "POLICY": "Privacy policy",
         "PRIVACY": "Personal information entered by the user during registration and/or ticket purchase is protected and regulated by the  Georgian Personal Data Protection Service. All information specified during the transfer is processed by the bank in a specially protected system"
     },
     "FOOTER": {
@@ -70,94 +81,96 @@
     },
     "TRAINLIST": {
         "SUITABLE": "please Choose suitable train",
-        "TRAINNUMBER":"Train number",
-        "DEPARTURE":"Departure",
-        "ARRIVE":"Arrive",
-        "ORDER":"Order",
-        "NOTRAIN":"no trains found",
-        "BACK":"back to main"
+        "TRAINNUMBER": "Train number",
+        "DEPARTURE": "Departure",
+        "ARRIVE": "Arrive",
+        "ORDER": "Order",
+        "NOTRAIN": "no trains found",
+        "BACK": "back to main"
     },
-
     "ORDERFORM": {
-        "INFO":"Passenger information",
-        "PERSONAL": "Please enter your personal details", 
-        "CONTACT":"Contact Information",
-        "EMAIL":"Email",
-        "PHONE":"Phone Number (9 Digit)",
-        "PASSENGER":"Passenger Information",
-        "PASSENGERNUM":"Passenger",
-        "SEAT":"Seat:",
-        "NAME":"Name", 
-        "SURNAME":"Surname",
-        "ID":"ID  (11 Digit)",
-        "SELECTSEAT":"Select Seat",
-        "PERSONALITEM":"Personal Item",
-        "PURSE":"Purse, small backpack, briefcase", 
-        "Carry":"Carry-on bag",
-        "Fits":"Fits in overhead bin or under the seat", 
-        "CHECKED":"Checked Bags", 
-        "large":"Larges Bag Purse, small backpack",
-        "INVOICE":"Invoice", 
-        "INVOICESEAT":"Select Seat",
-        "INVOICEPRICE":"Price",
-        "INVOICETOTAL":"Total",
-        "TERMS":"Agree to terms and conditions",
-        "submit":"Submit",
-        "CLASS1":"I Class",
-        "CLASS2":"II Class",
-        "CLASS3":"Business", 
-        "CHOOSE":"please choose wagon", 
-        "TYPE":"Vagon type:"
-
-
-
+        "INFO": "Passenger information",
+        "PERSONAL": "Please enter your personal details",
+        "CONTACT": "Contact Information",
+        "EMAIL": "Email",
+        "PHONE": "Phone Number (9 Digit)",
+        "PASSENGER": "Passenger Information",
+        "PASSENGERNUM": "Passenger",
+        "SEAT": "Seat:",
+        "NAME": "Name",
+        "SURNAME": "Surname",
+        "ID": "ID  (11 Digit)",
+        "SELECTSEAT": "Select Seat",
+        "PERSONALITEM": "Personal Item",
+        "PURSE": "Purse, small backpack, briefcase",
+        "Carry": "Carry-on bag",
+        "Fits": "Fits in overhead bin or under the seat",
+        "CHECKED": "Checked Bags",
+        "large": "Larges Bag Purse, small backpack",
+        "INVOICE": "Invoice",
+        "INVOICESEAT": "Select Seat",
+        "INVOICEPRICE": "Price",
+        "INVOICETOTAL": "Total",
+        "TERMS": "Agree to terms and conditions",
+        "submit": "Submit",
+        "CLASS1": "I Class",
+        "CLASS2": "II Class",
+        "CLASS3": "Business",
+        "CHOOSE": "please choose wagon",
+        "TYPE": "Vagon type:"
     },
-
     "PAY": {
         "CARD": "Please enter your card details",
         "NUMBER": "Card number:",
         "VALIDITY": "Validity",
         "CVC": "CVC / CVV:",
         "PWNER": "Card owner:",
-        "SUBMIT":"Submit",
+        "SUBMIT": "Submit",
         "NAME": "Name and Surname"
     },
-
     "CHECKTICKET": {
-        "ENTER":"please enter ticket number",
-        "SEARCH":"Search Ticket",
-        "WRONG":"Ticket Number is not correct, please try again",
-        "PAYMENT":"Payment done, see bellow ticket",
-        "RAILWAY":"Railway Ticket",
-        "NUMBER":"Ticket number:",
-        "PURCHASE":"Purchase :",
-        "DEPARTURE":"Departure",
-        "ARRIVE":"Arrive",
-        "DATE":"Date",
-        "CONTACT":"Contact information:",
-        "EMAIL":"Email",
-        "PHONE":"Phone",
-        "PASSENGERS":"Passengers:",
-        "NAME":"Name",
-        "SURNAME":"Surname",
-        "ID":"Personal ID: ",
-
-        "SEAT":"Seat number: ",
-
-        "TOTAL":"Total:",
-        "DOWNLOAD":"Please download ticket or save ticket number",
-
-        "DELETE":"Ticket has been successfully deleted.",
-
-        "CANCEL":"Cancel"
-
-
-
-
+        "ENTER": "please enter ticket number",
+        "SEARCH": "Search Ticket",
+        "WRONG": "Ticket Number is not correct, please try again",
+        "PAYMENT": "Payment done, see bellow ticket",
+        "RAILWAY": "Railway Ticket",
+        "NUMBER": "Ticket number:",
+        "PURCHASE": "Purchase :",
+        "DEPARTURE": "Departure",
+        "ARRIVE": "Arrive",
+        "DATE": "Date",
+        "CONTACT": "Contact information:",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "PASSENGERS": "Passengers:",
+        "NAME": "Name",
+        "SURNAME": "Surname",
+        "ID": "Personal ID: ",
+        "SEAT": "Seat number: ",
+        "TOTAL": "Total:",
+        "DOWNLOAD": "Please download ticket or save ticket number",
+        "DELETE": "Ticket has been successfully deleted.",
+        "CANCEL": "Cancel"
     },
     "FINALTICKET": {
-        "TITLE": "Final Ticket"
+        "PAYMENT": "Payment done, see bellow ticket",
+        "RAILWAY": "Railway Ticket",
+        "NUMBER": "Ticket number:",
+        "PURCHASE": "Purchase :",
+        "DEPARTURE": "Departure",
+        "ARRIVE": "Arrive",
+        "DATE": "Date",
+        "CONTACT": "Contact information:",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "PASSENGERS": "Passengers:",
+        "NAME": "Name",
+        "SURNAME": "Surname",
+        "ID": "Personal ID: ",
+        "SEAT": "Seat number: ",
+        "TOTAL": "Total:",
+        "DOWNLOAD": "Please download ticket or save ticket number",
+        "DELETE": "Ticket has been successfully deleted.",
+        "CANCEL": "Cancel"
     }
-  
- 
 }

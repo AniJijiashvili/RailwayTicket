@@ -1,37 +1,62 @@
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, HostListener, OnInit, } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CurrencyService } from '../currency.service';
+import { FormsModule } from '@angular/forms';
 
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, NgIf, NgClass, CommonModule,TranslateModule],
+  imports: [FormsModule, RouterModule, NgIf, NgClass, CommonModule, TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 
-export class HeaderComponent  {
+export class HeaderComponent {
   language: string = ''
+  selectedLanguage: string = 'en';
+  selectedCurrency: string = 'gel';
+  currency: string= 'GEL';
 
-  selectedLanguage: string = 'en'; 
-  selectedCurrency: string = 'gel'; 
 
-  constructor(private translateService: TranslateService) {
+  // calls the changeCurrency method of CurrencyService, passing the new currency value. This updates the currency in the service.
+  onCurrencyChange(event: any) {
+    this.currencyService.changeCurrency(event.target.value);
+  }
+
+  constructor(private translateService: TranslateService, private currencyService: CurrencyService) {
     this.translateService.setDefaultLang(this.selectedLanguage);
     localStorage.setItem('selectedLanguage', JSON.stringify("en"))
-
+    // sets up a subscription to the currentCurrency observable from CurrencyService.
+    // Subscribes to currentCurrency to keep the component's currency property updated.
+    this.currencyService.currentCurrency.subscribe(currency => this.currency = currency);
 
   }
+
+
+
+  // switchCurrency(event: Event) {
+  //   event.preventDefault();
+    
+  // }
+  // getCurrency(): string {
+  //   if (this.selectedLanguage === 'en') {
+  //     return this.selectedCurrency === 'usd' ? 'USD' : 'GEL';
+  //   } else {
+  //     return this.selectedCurrency === 'usd' ? 'დოლარი' : 'ლარი';
+  //   }
+  // }
+
 
   switchLanguage(language: string) {
     this.selectedLanguage = language;
     this.translateService.use(language);
     localStorage.removeItem("selectedLanguage")
     localStorage.setItem('selectedLanguage', JSON.stringify(language))
-  
+
   }
 
   getLanguageName(): string {
@@ -39,21 +64,10 @@ export class HeaderComponent  {
     return this.selectedLanguage === 'en' ? 'English' : 'ქართული'; // Example translation
   }
 
-  switchCurrency(event: Event,currency: string) {
-    event.preventDefault();
-    this.selectedCurrency = currency;
-  }
-  getCurrency(): string {
-    if (this.selectedLanguage === 'en') {
-        return this.selectedCurrency === 'usd' ? 'USD' : 'GEL';
-    } else {
-        return this.selectedCurrency === 'usd' ? 'დოლარი' : 'ლარი';
-    }
-}
+ 
 
 
 
-  
 
 
   // constructor(private translate: TranslateService) {

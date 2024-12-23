@@ -211,12 +211,24 @@ header {
 /* ვალუტის ჩამატება */
 .usd:before {
   background-image: url(../../assets/usd.png);
-
 }
 
 .gel:before {
   background-image: url(../../assets/larisvg.png);
 
+}
+
+.selected-lang-child label {
+  text-decoration: none;
+    width: 125px;
+    padding: 10px 10px;
+    display: block;
+    align-self: center;
+    font-size: 14px;
+    color:var(--bs-link-color-rgb);
+    display: flex;
+    gap:12px;
+    cursor: pointer;
 }
 
 

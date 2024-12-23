@@ -6,11 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { NgFor, NgIf } from '@angular/common';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-finalticket',
   standalone: true,
-  imports: [RouterModule,FormsModule,NgFor,NgIf],
+  imports: [RouterModule,FormsModule,NgFor,NgIf,TranslateModule],
   templateUrl: './finalticket.component.html',
   styleUrl: './finalticket.component.css'
 })
@@ -25,10 +27,13 @@ export class finalticketComponent implements OnInit{
   currentDate: string = '';
   isTicketDeleted: boolean = false;
   ticketIdfrom: string | null=null;
-  
+  selectedLanguage: string = 'en'; 
 
 
-constructor(private router: Router, private http:HttpClient) {}
+
+constructor(private router: Router, private http:HttpClient,private translateService: TranslateService) {
+  this.translateService.setDefaultLang(this.selectedLanguage);
+}
 ngOnInit(): void {
   this.ticketIdfrom = sessionStorage.getItem('ticketId') || null;
   // alert('Successful registration, your ticket ID in last page number is: '+ this.ticketIdfrom)

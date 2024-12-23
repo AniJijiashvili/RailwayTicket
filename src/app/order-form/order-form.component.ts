@@ -1,27 +1,53 @@
-
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule, } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
-import {  NgFor, NgIf, NgStyle } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  Validators,
+  ReactiveFormsModule,
+  NgModel,
+  FormsModule,
+} from '@angular/forms';
+import { CommonModule, NgFor, NgIf, NgStyle } from '@angular/common';
 import { TicketService } from '../ticket.service';
-import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
-
+import {
+  TranslateModule,
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
+import { CurrencyService } from '../currency.service';
 
 interface Wagon {
   id: number;
   trainId: number;
   trainNumber: number;
   name: string;
-  seats: { seatId: string; number: string; price: number; isOccupied: boolean; vagonId: number }[];
+  seats: {
+    seatId: string;
+    number: string;
+    price: number;
+    isOccupied: boolean;
+    vagonId: number;
+  }[];
 }
 
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
-  styleUrls: ['./order-form.component.css'], 
-  imports:[ReactiveFormsModule, NgFor, NgIf,RouterModule,NgStyle,TranslateModule],
-  standalone:true
+  styleUrls: ['./order-form.component.css'],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NgFor,
+    NgIf,
+    RouterModule,
+    NgStyle,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class OrderFormComponent implements OnInit {
   train: any;
@@ -38,31 +64,40 @@ export class OrderFormComponent implements OnInit {
   selectedSeatNums: string[] = [];
   selectedPassengerIndex: number | null = null;
   seatNum: string | undefined;
-  price:number | undefined;
+  price: number | undefined;
   totalPrice: number = 0;
-  selectedSeatIds: Map<number, string> = new Map();  // Map to store selected seat IDs for each passenger
+  selectedSeatIds: Map<number, string> = new Map(); // Map to store selected seat IDs for each passenger
   ticketId: string | null = null;
-  selectedLanguage: string = 'en'; 
-
-
-
+  selectedLanguage: string = 'en';
+  totalPriceGEL: number = this.totalPrice; // Example total price in GEL
+  totalPriceUSD: number = 0;
+  exchangeRate: number = 0;
+  currency: string = 'GEL';
+  totalPriceForUsd: number = 0;
   orderForm: FormGroup;
+  selectedSeats: { [seatId: string]: boolean } = {}; // Track if each seat is selected
+  lastSelectedSeat: { [passengerId: string]: string | null } = {}; //
+  currentPassengerId: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private ticketservice: TicketService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private currencyService: CurrencyService
+  ) // private ticketService:TicketService,
 
-    // private ticketService:TicketService,
-  ) {
+  {
     this.translateService.setDefaultLang(this.selectedLanguage);
 
     this.orderForm = this.formBuilder.group({
-      email: ['',[Validators.required,Validators.email]],
-      phoneNumber: ['',[Validators.required,Validators.pattern('^[0-9]{9}$')]],
-      passengers: this.formBuilder.array([])
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]{9}$')],
+      ],
+      passengers: this.formBuilder.array([]),
     });
 
     const travelers = sessionStorage.getItem('travelers');
@@ -71,28 +106,70 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
+  fetchExchangeRate() {
+    if (this.currency === 'USD') {
+      this.currencyService.getExchangeRate().subscribe((data) => {
+        this.exchangeRate = data.rates.USD;
+        this.convertPrice();
+      });
+    } else {
+      this.converPriceGel();
+    }
+  }
+
+  convertPrice() {
+    if (this.exchangeRate) {
+      this.totalPriceUSD = this.totalPriceGEL * this.exchangeRate;
+      // console.log("exhange rate",this.exchangeRate)
+      // console.log('done this part', this.totalPriceUSD)
+    }
+  }
+  converPriceGel() {
+    this.totalPriceGEL = this.totalPriceUSD / this.exchangeRate;
+    // console.log("this is gel " ,this.totalPriceGEL)
+  }
+
+  // Add the new seat price to the total
+  //  this.totalPrice += selectedSeat.price;
+  //  this.totalPriceGEL = this.totalPrice; // Example total price in GEL
+
+  // ჩამატებული
+
+  //  this.totalPriceForUsd+=selectedSeat.price
+  //  this.totalPriceUSD=this.totalPriceForUsd
+
   ngOnInit(): void {
+    this.currencyService.currentCurrency.subscribe((currency) => {
+      this.currency = currency;
+      this.fetchExchangeRate();
+    });
+
     this.train = history.state.train;
     this.trainId = history.state.trainId;
 
     this.setPassengers(this.travelers);
 
-    console.log('look this is train ID', this.trainId);
-    console.log('ready-trainId', this.trainId);
-    console.log(new Date().toISOString());
-    console.log('ready details', this.orderForm.value);
+    // console.log('look this is train ID', this.trainId);
+    // console.log('ready-trainId', this.trainId);
+    // console.log(new Date().toISOString());
+    // console.log('ready details', this.orderForm.value);
   }
 
   setPassengers(numPassengers: number) {
     const passengers = this.orderForm.get('passengers') as FormArray;
 
     for (let i = 0; i < numPassengers; i++) {
-      passengers.push(this.formBuilder.group({
-        name: [''],
-        surname: [''],
-        idNumber: ['',[Validators.required,Validators.pattern('^[0-9]{11}$')]],
-        seatNumber: ['']
-      }));
+      passengers.push(
+        this.formBuilder.group({
+          name: [''],
+          surname: [''],
+          idNumber: [
+            '',
+            [Validators.required, Validators.pattern('^[0-9]{11}$')],
+          ],
+          seatNumber: [''],
+        })
+      );
     }
   }
 
@@ -111,10 +188,12 @@ export class OrderFormComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event) {
     if (this.isDisplay) {
-      const clickedInside = (event.target as HTMLElement).closest('.seat_container');
+      const clickedInside = (event.target as HTMLElement).closest(
+        '.seat_container'
+      );
       if (!clickedInside) {
         this.isDisplay = false;
-        console.log('Clicked outside, isDisplay:', this.isDisplay);
+        // console.log('Clicked outside, isDisplay:', this.isDisplay);
       }
     }
   }
@@ -140,33 +219,37 @@ export class OrderFormComponent implements OnInit {
           surname: passenger.surname,
           idNumber: passenger.idNumber,
           status: 'confirmed',
-          payoutCompleted: true
-        }))
+          payoutCompleted: true,
+        })),
       };
 
       const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       });
 
-      this.http.post(this.apiUrl, ticketData, { headers, responseType: 'text' as 'json' })
+      this.http
+        .post(this.apiUrl, ticketData, {
+          headers,
+          responseType: 'text' as 'json',
+        })
         .subscribe(
-          response => {
+          (response) => {
             try {
               const stringedResponse = JSON.stringify(response);
-              const ticketId = stringedResponse.slice(46, stringedResponse.length - 1);
+              const ticketId = stringedResponse.slice(
+                46,
+                stringedResponse.length - 1
+              );
               // alert(stringedResponse);
-              console.log(ticketId);
+              // console.log(ticketId);
 
               sessionStorage.setItem('ticketId', ticketId);
-              console.log('Ticket ID saved in sessionStorage:', ticketId);
-
-
-
+              // console.log('Ticket ID saved in sessionStorage:', ticketId);
             } catch (e) {
               console.error('Error parsing response', e);
             }
           },
-          error => {
+          (error) => {
             console.error('Error registering ticket', error);
             alert(error.error);
           }
@@ -177,92 +260,147 @@ export class OrderFormComponent implements OnInit {
   }
 
   showWagon(wagonName: string) {
-    this.selectedWagon = this.filteredWagons.find((wagon: Wagon) => wagon.name === wagonName);
-    this.selectedWagonSeats = this.selectedWagon ? this.selectedWagon.seats.map(seat => seat.number) : [];
+    this.selectedWagon = this.filteredWagons.find(
+      (wagon: Wagon) => wagon.name === wagonName
+    );
+    this.selectedWagonSeats = this.selectedWagon
+      ? this.selectedWagon.seats.map((seat) => seat.number)
+      : [];
     this.selectedWagonClass = wagonName;
   }
 
   vagonSearch() {
     const url = `https://railway.stepprojects.ge/api/vagons`;
-    this.http.get(url).subscribe((response: any) => {
-      this.ticket = response;
-      this.filteredWagons = response.filter((wagon: any) => wagon.trainId === this.trainId);
-    }, (error) => {
-      console.error('API Error:', error);
-    });
+    this.http.get(url).subscribe(
+      (response: any) => {
+        this.ticket = response;
+        this.filteredWagons = response.filter(
+          (wagon: any) => wagon.trainId === this.trainId
+        );
+      },
+      (error) => {
+        console.error('API Error:', error);
+      }
+    );
   }
 
-  // logSeatId(seatNumber: string) {
-  //   const selectedSeat = this.selectedWagon?.seats.find(seat => seat.number === seatNumber);
-  //   if (selectedSeat) {
-  //     this.seatNum = selectedSeat.seatId;
-  //     this.price = selectedSeat.price;
-  //     console.log('this is price', this.price)
-  //     if (this.selectedPassengerIndex !== null) {
-  //       const passengers = this.orderForm.get('passengers') as FormArray;
-  //       const passenger = passengers.at(this.selectedPassengerIndex) as FormGroup;
-  //       passenger.get('seatNumber')?.setValue(selectedSeat.number);
-
-
-  //       this.totalPrice += selectedSeat.price;
-
-
-  //     }
-  //   }
-  // }
   logSeatId(seatNumber: string) {
-    const selectedSeat = this.selectedWagon?.seats.find(seat => seat.number === seatNumber);
+    const selectedSeat = this.selectedWagon?.seats.find(
+      (seat) => seat.number === seatNumber
+    );
+    console.log('11111this is selected Seat', selectedSeat);
+    //selectedSeat ეს არის შერჩეული ადგილის ობიექტი, ჩამოთვლილი ყველა მახასიათებლით
+    if (selectedSeat) {
+      // Unselect the previous seat for this passenger
+      const previousSeatId = this.lastSelectedSeat[this.currentPassengerId];
+      console.log('this is previus seat', previousSeatId);
+      //previousSeatId ეს არის წინა შერჩეული ადგილი
+      console.log('here is last selected seat', this.lastSelectedSeat);
+      //lastSelectedSeat ეს არის ბოლო ორი შერჩეული ადგილი
+      if (previousSeatId) {
+        this.selectedSeats[previousSeatId] = false;
+      }
+      console.log('222222selectedseated', this.selectedSeats);
+      //selectedSeats ეს არის შერჩეული ადგილების აიდების მასივი
+      // Select the new seat
+      this.selectedSeats[selectedSeat.seatId] = true;
+      this.lastSelectedSeat[this.currentPassengerId] = selectedSeat.seatId; // Update the last selected seat for the current passenger
+      const finalSeatNum = this.lastSelectedSeat[this.currentPassengerId];
+      console.log('final seat num is', finalSeatNum);
+      console.log('--------------');
+    }
+
+    //ყველას აფერადებს
+    // if (selectedSeat) {
+    // Unselect the previous seat for this passenger
+    // const previousSeatId = this.lastSelectedSeat[this.currentPassengerId];
+    // if (previousSeatId && !this.takenSeats[previousSeatId]) {
+    //   this.selectedSeats[previousSeatId] = false;
+    // }
+    // this.selectedSeats[selectedSeat.seatId] = true;
+    // this.lastSelectedSeat[this.currentPassengerId] = selectedSeat.seatId;
+
+    // Mark the seat as taken
+    //   this.takenSeats[selectedSeat.seatId] = true;
+    // }
+
     if (selectedSeat) {
       // Check if selectedPassengerIndex is not null
-      if (this.selectedPassengerIndex !== null && this.selectedPassengerIndex !== undefined) {
+      if (
+        this.selectedPassengerIndex !== null &&
+        this.selectedPassengerIndex !== undefined
+      ) {
         // Check if the seat is already assigned to another passenger
         if (this.selectedSeatIds.has(this.selectedPassengerIndex)) {
-          const existingSeatId = this.selectedSeatIds.get(this.selectedPassengerIndex);
+          const existingSeatId = this.selectedSeatIds.get(
+            this.selectedPassengerIndex
+          );
           if (existingSeatId) {
             // Find the wagon of the previously selected seat
-            const previousWagon = this.filteredWagons.find(wagon => {
-              return wagon.seats.some(seat => seat.seatId === existingSeatId);
+            const previousWagon = this.filteredWagons.find((wagon) => {
+              return wagon.seats.some((seat) => seat.seatId === existingSeatId);
             });
-  
+
             if (previousWagon) {
               // Find the previous seat and subtract its price from the total
-              const previousSeat = previousWagon.seats.find(seat => seat.seatId === existingSeatId);
+              const previousSeat = previousWagon.seats.find(
+                (seat) => seat.seatId === existingSeatId
+              );
               if (previousSeat) {
+                if (this.currency === 'USD') {
+                  this.currencyService.getExchangeRate().subscribe((data) => {
+                    this.exchangeRate = data.rates.USD;
+                    this.convertPrice();
+                  });
+                } else {
+                  this.converPriceGel();
+                }
                 this.totalPrice -= previousSeat.price;
+                this.totalPriceForUsd -= previousSeat.price * this.exchangeRate;
+                // console.log("here is exchange rate", this.exchangeRate)
+                // console.log("i think there is problem-total price", this.totalPrice)
+                // console.log("i think there is problem-total price for Usd", this.totalPrice)
               }
             }
           }
         }
-  
+
         this.seatNum = selectedSeat.seatId;
         this.price = selectedSeat.price;
-        console.log('this is price', this.price);
-  
+        // console.log('this is price', this.price);
+
         const passengers = this.orderForm.get('passengers') as FormArray;
-        const passenger = passengers.at(this.selectedPassengerIndex) as FormGroup;
-  
+        const passenger = passengers.at(
+          this.selectedPassengerIndex
+        ) as FormGroup;
+
         passenger.get('seatNumber')?.setValue(selectedSeat.number);
-  
+
         // Add the new seat ID to the map for the current passenger
-        this.selectedSeatIds.set(this.selectedPassengerIndex, selectedSeat.seatId);
-  
+        this.selectedSeatIds.set(
+          this.selectedPassengerIndex,
+          selectedSeat.seatId
+        );
+
         // Add the new seat price to the total
         this.totalPrice += selectedSeat.price;
+        this.totalPriceGEL = this.totalPrice; // Example total price in GEL
+
+        // ჩამატებული
+
+        this.totalPriceForUsd += selectedSeat.price * this.exchangeRate;
+        this.totalPriceUSD = this.totalPriceForUsd;
       }
     }
   }
-  
-
-
-
-
-
 
   get passengers() {
     return this.orderForm.get('passengers') as FormArray;
   }
 
   passengerIndexes(): number[] {
-    return Array(this.travelers).fill(0).map((_, i) => i);
+    return Array(this.travelers)
+      .fill(0)
+      .map((_, i) => i);
   }
 }

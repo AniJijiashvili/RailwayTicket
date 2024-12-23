@@ -444,6 +444,10 @@ img {
 .seats ul>*:nth-child(odd) {
   margin-left: 25px;
 }
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
 
 /* .seats ul> *:nth-child(2) {
   margin-left:-25px;

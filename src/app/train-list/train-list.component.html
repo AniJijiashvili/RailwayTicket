@@ -13,21 +13,20 @@
             <tr *ngFor="let train of trains">
                 <td>
                     <p>#{{train.number}}</p>
-                    <p> {{train.name}}</p>
+                    <p> {{train.name | translate}}</p>
                 </td>
 
                 <td>
-
-                    <p> {{train.departure}}
+                    <p> {{train.departure }}
                     </p>
-                    <p> {{train.from}}
+                    <p> {{train.from | translate}}
                     </p>
                 </td>
 
                 <td class="arrive">
                     <p> {{train.arrive}}
                     </p>
-                    <p> {{train.to}}
+                    <p> {{train.to | translate}}
                     </p>
                 </td>
 
